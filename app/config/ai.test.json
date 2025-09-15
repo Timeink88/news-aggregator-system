@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "defaultModel": "gpt-3.5-turbo",
+  "maxTokens": 1000,
+  "temperature": 0.7,
+  "costControl": {
+    "enabled": true,
+    "dailyBudget": 10,
+    "monthlyBudget": 200
+  }
+}

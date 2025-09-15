@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "provider": "resend",
+  "maxRetries": 3,
+  "batchSize": 50,
+  "dailyDigest": {
+    "enabled": true,
+    "sendTime": "09:00",
+    "maxArticles": 20
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "poolSize": 10,
+  "connectionTimeout": 30000,
+  "queryTimeout": 30000
+}

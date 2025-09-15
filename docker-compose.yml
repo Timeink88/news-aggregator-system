@@ -1,0 +1,104 @@
+# =============================================================================
+# 新闻聚合系统 - Docker Compose 配置
+# Author: timink
+# Version: 1.0.0
+# =============================================================================
+
+version: '3.8'
+
+services:
+  # 新闻聚合主应用
+  app:
+    build:
+      context: .
+      dockerfile: app/deploy/Dockerfile
+    container_name: news-aggregator-app
+    image: news-aggregator:latest
+
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOST=0.0.0.0
+      - TZ=Asia/Shanghai
+
+      # 数据库配置
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+
+      # AI 服务配置
+      - DEEPSEEK_BASE_URL=${DEEPSEEK_BASE_URL}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - DEEPSEEK_MODEL=${DEEPSEEK_MODEL}
+
+      # 邮件服务配置
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASS=${SMTP_PASS}
+      - FROM_EMAIL=${FROM_EMAIL}
+      - TO_EMAIL=${TO_EMAIL}
+
+      # Redis 配置
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+
+      # 安全配置
+      - JWT_SECRET=${JWT_SECRET}
+
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./app/config:/app/config
+
+    expose:
+      - "3000"
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    networks:
+      - proxy_network
+      - news_network
+
+    restart: unless-stopped
+
+  # Redis 缓存
+  redis:
+    image: redis:7-alpine
+    container_name: news-aggregator-redis
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
+
+    volumes:
+      - redis_data:/data
+
+    expose:
+      - "6379"
+
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+    networks:
+      - news_network
+
+    restart: unless-stopped
+
+# 网络配置
+networks:
+  proxy_network:
+    external: true
+
+  news_network:
+    driver: bridge
+
+# 数据卷
+volumes:
+  redis_data:
+    driver: local

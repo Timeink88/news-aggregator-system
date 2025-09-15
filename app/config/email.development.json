@@ -1,0 +1,22 @@
+{
+  "enabled": true,
+  "provider": "smtp",
+  "smtp": {
+    "host": "smtp.88.com",
+    "port": 465,
+    "secure": true,
+    "auth": {
+      "user": "Timing@88.com",
+      "pass": "MQXh4QhHFUUC3jGU"
+    }
+  },
+  "from": "Timing@88.com",
+  "to": "506922247@qq.com",
+  "maxRetries": 3,
+  "batchSize": 50,
+  "dailyDigest": {
+    "enabled": true,
+    "sendTime": "09:00",
+    "maxArticles": 20
+  }
+}

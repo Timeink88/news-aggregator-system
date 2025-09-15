@@ -1,0 +1,7 @@
+{
+  "maxSources": 100,
+  "fetchInterval": 300000,
+  "timeout": 30000,
+  "retryAttempts": 3,
+  "userAgent": "NewsAggregator/1.0"
+}

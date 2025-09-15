@@ -1,0 +1,6 @@
+{
+  "logLevel": "info",
+  "maxConcurrentTasks": 5,
+  "cleanupInterval": 86400000,
+  "dataRetentionDays": 30
+}

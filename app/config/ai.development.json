@@ -1,0 +1,19 @@
+{
+  "enabled": true,
+  "provider": "deepseek",
+  "defaultModel": "DeepSeek-V3.1",
+  "models": {
+    "deepseek": {
+      "baseUrl": "https://one.timeink.fun/v1",
+      "apiKey": "sk-teyv1oiKDq1BQfv7gfyZo51L9toQy4GSFaoN215gv66wslG8",
+      "model": "DeepSeek-V3.1"
+    }
+  },
+  "maxTokens": 1000,
+  "temperature": 0.7,
+  "costControl": {
+    "enabled": true,
+    "dailyBudget": 10,
+    "monthlyBudget": 200
+  }
+}
